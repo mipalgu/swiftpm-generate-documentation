@@ -27,6 +27,7 @@ runs:
   steps:
       - name: Setup Swift on MacOS
         if: ${{ runner.os == 'macOS' }}
+        shell: bash
         run: |
           curl -O https://download.swift.org/swiftly/darwin/swiftly.pkg && \
             installer -pkg swiftly.pkg -target CurrentUserHomeDirectory && \
@@ -36,6 +37,7 @@ runs:
 
       - name: Setup Swift on Linux
         if: ${{ runner.os == 'Linux' }}
+        shell: bash
         run: |
           sudo apt-get update && sudo apt-get -y install libcurl4-openssl-dev
           curl -O https://download.swift.org/swiftly/linux/swiftly-$(uname -m).tar.gz && \
