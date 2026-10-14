@@ -31,9 +31,10 @@ runs:
         run: |
           curl -O https://download.swift.org/swiftly/darwin/swiftly.pkg && \
             installer -pkg swiftly.pkg -target CurrentUserHomeDirectory && \
-            ~/.swiftly/bin/swiftly init --quiet-shell-followup --assume-yes && \
+            ~/.swiftly/bin/swiftly init --quiet-shell-followup --assume-yes --skip-install && \
             . "${SWIFTLY_HOME_DIR:-$HOME/.swiftly}/env.sh" && \
             hash -r
+          swiftly install ${{ inputs.swift-version }}
 
       - name: Setup Swift on Linux
         if: ${{ runner.os == 'Linux' }}
@@ -42,9 +43,10 @@ runs:
           sudo apt-get update && sudo apt-get -y install libcurl4-openssl-dev
           curl -O https://download.swift.org/swiftly/linux/swiftly-$(uname -m).tar.gz && \
             tar zxf swiftly-$(uname -m).tar.gz && \
-            ./swiftly init --quiet-shell-followup --assume-yes && \
+            ./swiftly init --quiet-shell-followup --assume-yes --skip-install && \
             . "${SWIFTLY_HOME_DIR:-$HOME/.local/share/swiftly}/env.sh" && \
             hash -r
+          swiftly install ${{ inputs.swift-version }}
 
       - name: Generate Documentation
         if: ${{ runner.os == 'Linux' }}
